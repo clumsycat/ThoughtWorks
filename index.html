@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>收银机</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/cart.css">
+<!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body onload="doInit() ">
+	<div class="jumbotron">
+		<h1>没钱赚商店<small>老板：ClumsyCat </small></h1>
+		<h3>小伙子们，欢迎光临~随便买点什么吧</h3>
+		<h3>特大喜讯，为感谢广大用户，商店最新活动为<b>特惠商品满100减10元~</b></h3>
+	</div>
+	<div class="container">
+		<div class="alert alert-info alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>使用说明：</strong> 1、点击在售列表的商品(特惠商品为红色背景)添加至购物车；2、点击购物车中的商品进行删除；3、选择完毕后，点击结账按钮，显示小票
+		</div>
+		<div class="row">
+			<div id="D-onsale" class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+				<h4>商店在售</h4>
+				<ul class="list-group" id="L-onsale">
+				</ul>
+			</div>
+			<div id="D-cart" class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+				<h4>购物车</h4>
+				<ul class="list-group" id="L-cart">
+					<a href="#" class="list-group-item disabled">
+						购物车为空
+					</a>
+				</ul>
+				<p>当前购物车金额：<b id="final-price">￥0.00</b></p>
+				<a role="button" class="btn btn-info" onclick="ClearCart();">清空购物车</a>
+			</div>
+			<div id="D-receipt" class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">小票</h3>
+					</div>
+					<div class="panel-body" >
+						<pre id="receipt-content">快来结账啊~</pre>
+					</div>
+				</div>
+				<a role="button" class="btn btn-success" onclick="Print(1);">结账</a>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jsondata.js"></script>
+<script type="text/javascript" src="js/action.js"></script>
+</html>
