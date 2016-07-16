@@ -1,0 +1,28 @@
+{
+  "name": "tw-test",
+  "version": "1.0.0",
+  "description": "\"karma+jasmine\"",
+  "main": "index.html",
+  "scripts": {
+    "test": "node ./node_modules/karma/bin/karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clumsycat/ThoughtWorks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clumsycat/ThoughtWorks/issues"
+  },
+  "homepage": "https://github.com/clumsycat/ThoughtWorks#readme",
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "jasmine-core": "^2.4.1",
+    "jquery": "1.9.1",
+    "karma": "^1.1.1",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.0.2"
+  }
+}
