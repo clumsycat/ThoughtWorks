@@ -15,10 +15,8 @@ install:
 
 script: npm test
 
-
 notifications: 
  email:
   recipients: weilu544@gmail.com
-
   on_success: change
   on_failure: always
