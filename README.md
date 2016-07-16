@@ -1,4 +1,6 @@
-# ThoughtWorks
+﻿# ThoughtWorks
+[![Build Status](https://travis-ci.org/clumsycat/ThoughtWorks.svg?branch=master)](https://travis-ci.org/clumsycat/ThoughtWorks)
+
 实现的题目为：[活动商品满100减10元](https://jinshuju.net/f/erAsn0)  
 
 主要文件为index.html, action.js, jsondata.js。
