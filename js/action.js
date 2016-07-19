@@ -111,6 +111,7 @@ function print(){
 			receiptCotent += "名称：" + onsale_data[index].name + "，数量：" + cart_list[item] + onsale_data[index].unit
 				+ "，单价：" + onsale_data[index].price.toFixed(2) + "（元），小计：" + (price * 0.95).toFixed(2) + "，节省"
 				+ (price * 0.05).toFixed(2) + "（元）</br>"; 
+			price = price * 0.95;
 		}
 		//买二赠一
 		else if($.inArray(onsale_data[index].barcode,discount_list[1].barcodes) != -1 && cart_list[item] / 3 >= 1){

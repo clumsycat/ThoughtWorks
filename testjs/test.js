@@ -36,10 +36,11 @@ describe("first test", function(){
 
 	//测试3个 买二赠一的物品
 	it("test freeGood Discount",function(){
+		clearCart();
 		addToCart("ITEM000007");
 		addToCart("ITEM000007");
 		addToCart("ITEM000007");
-		expect(print()).toEqual([70.00,35.00]);
+		expect(print()).toEqual(['70.00','35.00']);
 	});
 	//测试5个 买二赠一的物品
 	it("test freeGood Discount",function(){
@@ -49,7 +50,7 @@ describe("first test", function(){
 		addToCart("ITEM000007");
 		addToCart("ITEM000007");
 		addToCart("ITEM000007");
-		expect(print()).toEqual([140.00,35.00]);
+		expect(print()).toEqual(['140.00','35.00']);
 	});
 
 	//测试两种 买二赠一的物品
@@ -65,7 +66,25 @@ describe("first test", function(){
 		addToCart("ITEM000004");
 		addToCart("ITEM000004");
 		addToCart("ITEM000004");
-		expect(print()).toEqual([152.00,38.00]);
+		expect(print()).toEqual(['152.00','38.00']);
 	});
+
+	//测试1个 95折的物品
+	it("test freeGood Discount",function(){
+		clearCart();
+		addToCart("ITEM000002");
+		expect(print()).toEqual(['93.10','4.90']);
+	});
+
+	//测试两种 特惠情况
+	it("test freeGood Discount",function(){
+		clearCart();
+		addToCart("ITEM000002");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		expect(print()).toEqual(['163.1.00','39.90']);
+	});
+
 
 });
