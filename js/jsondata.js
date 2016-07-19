@@ -36,16 +36,18 @@ var onsale_data= [{
 }];
 
 var discount_list = 
-[
-{
-  type: 'FULL_ONE_HUNDRED_MINUS_TEN',
+[{
+ type: 'FREE_GOODS_OFFER', 
+ barcodes: [ 
+  'ITEM000000', 
+  'ITEM000001' 
+  ] 
+},{ 
+  type: 'FIVE_PERCENT_DISCOUNT', 
   barcodes: [
-  'ITEM000001',
-  'ITEM000002',
-  'ITEM000005'
-  ]
-}
-]
+   'ITEM000004' 
+   ], 
+}]
 
 var purchase_list =
 [

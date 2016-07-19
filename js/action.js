@@ -5,12 +5,12 @@ function doInit(){
 		if($.inArray(onsale_data[i].barcode,discount_list[0].barcodes) != -1)
 			str += '<a onclick="addToCart(\''+onsale_data[i].barcode 
 		+'\')" title ="参与满100减10元的活动"class="list-group-item list-group-item-danger" id="'
-		+onsale_data[i].barcode +'"><span class="badge">'+onsale_data[i].price.toFixed(2)+' 元/'
+		+onsale_data[i].barcode +'"><span class="badge">'+onsale_data[i].price.toFixed(2)+' 元 / '
 		+onsale_data[i].unit+'</span>'+ onsale_data[i].name+'</a>';
 		else
 			str += '<a onclick="addToCart(\''+onsale_data[i].barcode 
 		+'\')" title="不参与活动" class="list-group-item" id="'+onsale_data[i].barcode 
-		+'"><span class="badge">'+onsale_data[i].price.toFixed(2)+' 元/'
+		+'"><span class="badge">'+onsale_data[i].price.toFixed(2)+' 元 / '
 		+onsale_data[i].unit+'</span>'+ onsale_data[i].name+'</a>';
 	}
 	$("#L-onsale").html(str);
