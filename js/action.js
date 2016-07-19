@@ -3,18 +3,15 @@ function doInit(){
 	var str ="";
 	for(var i=0;i<onsale_data.length;i++){
 		if($.inArray(onsale_data[i].barcode,discount_list[0].barcodes) != -1)
-			str += '<a onclick="addToCart(\''+onsale_data[i].barcode 
-		+'\')" title ="参与满100减10元的活动"class="list-group-item list-group-item-danger" id="'
-		+onsale_data[i].barcode +'"><span class="badge">'+onsale_data[i].price.toFixed(2)+' 元 / '
-		+onsale_data[i].unit+'</span>'+ onsale_data[i].name+'</a>';
+			str += saleListStr(onsale_data[i],"参与95折优惠","list-group-item-danger");
+		else if($.inArray(onsale_data[i].barcode,discount_list[1].barcodes) != -1)
+			str += saleListStr(onsale_data[i],"参与满二赠一优惠","list-group-item-info");
 		else
-			str += '<a onclick="addToCart(\''+onsale_data[i].barcode 
-		+'\')" title="不参与活动" class="list-group-item" id="'+onsale_data[i].barcode 
-		+'"><span class="badge">'+onsale_data[i].price.toFixed(2)+' 元 / '
-		+onsale_data[i].unit+'</span>'+ onsale_data[i].name+'</a>';
+			str += saleListStr(onsale_data[i],"不参与活动");
 	}
 	$("#L-onsale").html(str);
 
+	//根据预先定义好的初始化列表初始化购物车中物品数量
 	var cart_list = {};
 	for(var i=0;i<purchase_list.length;i++){
 		var count = 1;
@@ -27,14 +24,24 @@ function doInit(){
 		}
 		else
 			item = purchase_list[i];
-		var oldcount = 0.00;
+
 		if(item in cart_list)
-			oldcount = cart_list[item];
-		cart_list[item] = oldcount+count; 
+			cart_list[item] += count; 
+		else
+			cart_list[item] = count; 
 	}
 	localStorage.setItem("cartlist",JSON.stringify(cart_list));
 	DrawCart();
 }
+//简化代码阅读，将列表生成的部分拆开单独作为函数
+function saleListStr(onsale_data,info,color){
+	return '<a onclick="addToCart(\''+onsale_data.barcode 
+		+'\')" title ="'+ info +'" class="list-group-item '+ color +'" id="'
+		+onsale_data.barcode +'"><span class="badge">'+onsale_data.price.toFixed(2)+' 元 / '
+		+onsale_data.unit+'</span>'+ onsale_data.name+'</a>';
+}
+
+
 //向购物车添加物品
 function addToCart(id){
 	var cart_list = JSON.parse(localStorage.getItem("cartlist"));

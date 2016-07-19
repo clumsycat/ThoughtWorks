@@ -33,19 +33,34 @@ var onsale_data= [{
   "category": "食品",
   "subCategory": "碳酸饮料",
   "price": 3.00
+},{
+  "barcode": "ITEM000006",
+  "name": "农夫山泉",
+  "unit": "瓶",
+  "category": "食品",
+  "subCategory": "矿泉水",
+  "price": 1.50
+},{
+  "barcode": "ITEM000007",
+  "name": "哈根达斯",
+  "unit": "盒",
+  "category": "食品",
+  "subCategory": "冰淇淋",
+  "price": 35.00
 }];
 
 var discount_list = 
 [{
  type: 'FREE_GOODS_OFFER', 
  barcodes: [ 
-  'ITEM000000', 
-  'ITEM000001' 
+  'ITEM000001', 
+  'ITEM000002' 
   ] 
 },{ 
   type: 'FIVE_PERCENT_DISCOUNT', 
   barcodes: [
-   'ITEM000004' 
+   'ITEM000004',
+   'ITEM000007'
    ], 
 }]
 
