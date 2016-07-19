@@ -27,4 +27,45 @@ describe("first test", function(){
 		deleteFromCart("ITEM000003");
 		expect(localStorage.getItem("cartlist")).toEqual('{"ITEM000001":5,"ITEM000002":2,"ITEM000005":3,"ITEM000004":1}');
 	});
+
+	//清空
+	it("clear the cart",function(){
+		clearCart();
+		expect(localStorage.getItem("cartlist")).toEqual('{}');
+	});
+
+	//测试3个 买二赠一的物品
+	it("test freeGood Discount",function(){
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		expect(print()).toEqual([70.00,35.00]);
+	});
+	//测试5个 买二赠一的物品
+	it("test freeGood Discount",function(){
+		clearCart();
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		expect(print()).toEqual([140.00,35.00]);
+	});
+
+	//测试两种 买二赠一的物品
+	it("test freeGood Discount",function(){
+		clearCart();
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000007");
+		addToCart("ITEM000004");
+		addToCart("ITEM000004");
+		addToCart("ITEM000004");
+		addToCart("ITEM000004");
+		addToCart("ITEM000004");
+		expect(print()).toEqual([152.00,38.00]);
+	});
+
 });
