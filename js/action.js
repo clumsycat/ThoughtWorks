@@ -1,7 +1,13 @@
 //copy the init data from jsonfile, and init the onsale list
-function doInit(initData){
-	if( typeof(initData) != "undefined"){
-
+function doInit(onsaleData,discountData,cartData){
+	if( typeof(onsaleData) != "undefined"){
+		onsale_data = onsaleData;
+	}
+	if( typeof(discountData) != "undefined"){
+		discount_list = discountData;
+	}
+	if( typeof(cartData) != "undefined"){
+		purchase_list = cartData;
 	}
 
 	var str = "";
