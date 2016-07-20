@@ -1,5 +1,5 @@
 //copy the init data from jsonfile, and init the onsale list
-function doInit(onsaleData,discountData,cartData){
+function doInit(onsaleData = onsale_data ,discountData = discount_list,cartData = purchase_list){
 	if( typeof(onsaleData) != "undefined"){
 		onsale_data = onsaleData;
 	}

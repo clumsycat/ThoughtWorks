@@ -51,29 +51,29 @@ var onsale_data= [{
 
 var discount_list = 
 [{
- type: 'FREE_GOODS_OFFER', 
+ type: "FREE_GOODS_OFFER", 
  barcodes: [ 
-  'ITEM000001', 
-  'ITEM000002' 
+  "ITEM000001", 
+  "ITEM000002" 
   ] 
 },{ 
-  type: 'FIVE_PERCENT_DISCOUNT', 
+  type: "FIVE_PERCENT_DISCOUNT", 
   barcodes: [
-   'ITEM000004',
-   'ITEM000007'
+   "ITEM000004",
+   "ITEM000007"
    ], 
 }]
 
 var purchase_list =
 [
-'ITEM000001',
-'ITEM000001',
-'ITEM000001',
-'ITEM000001',
-'ITEM000001',
-'ITEM000002',
-'ITEM000003-2',
-'ITEM000005',
-'ITEM000005',
-'ITEM000005'
+"ITEM000001",
+"ITEM000001",
+"ITEM000001",
+"ITEM000001",
+"ITEM000001",
+"ITEM000002",
+"ITEM000003-2",
+"ITEM000005",
+"ITEM000005",
+"ITEM000005"
 ]
