@@ -11,10 +11,17 @@ function doInit(onsaleData = onsale_data ,discountData = discount_list,cartData 
 	}
 
 	var str = "";
+	var indexOfFreeGoods,indexOfFivePercentDiscount;
+	for(var i=0;i<discount_list.length;i++){
+		if(discount_list[i].type == "FREE_GOODS_OFFER")
+			indexOfFreeGoods = i;
+		if(discount_list[i].type == "FIVE_PERCENT_DISCOUNT")
+			indexOfFivePercentDiscount = i;
+	}
 	for(var i = 0; i < onsale_data.length; i++){
-		if($.inArray(onsale_data[i].barcode,discount_list[0].barcodes) != -1)
+		if($.inArray(onsale_data[i].barcode,discount_list[indexOfFivePercentDiscount].barcodes) != -1)
 			str += saleListStr(onsale_data[i], "参与95折优惠", "list-group-item-danger");
-		else if($.inArray(onsale_data[i].barcode,discount_list[1].barcodes) != -1)
+		else if($.inArray(onsale_data[i].barcode,discount_list[indexOfFreeGoods].barcodes) != -1)
 			str += saleListStr(onsale_data[i], "参与满二赠一优惠", "list-group-item-info");
 		else
 			str += saleListStr(onsale_data[i], "不参与活动");
@@ -92,7 +99,7 @@ function drawCart(){
 		+ '</span>' + onsale_data[index].name + '</a>';
 	}
 	$("#L-cart").html(cartstr);
-	$("#final-price").html("优惠前：￥"+total_sum.toFixed(2)+"（元）");
+	$("#final-price").html("￥"+total_sum.toFixed(2)+"（元）");
 }
 
 function clearCart(){
@@ -104,7 +111,7 @@ function clearCart(){
 
 //打印小票入口，重构
 function print(){
-	var receipt = getReceipt().replace(/(?:\r\n|\n)/g, '<br>');
+	var receipt = getReceipt()//.replace(/(?:\r\n|\n)/g, '<br>');
 	$("#receipt-content").html(receipt);
 
 }
@@ -117,19 +124,25 @@ function getReceipt(){
 
 	var total_sum = 0.00;
 	var discount_sum = 0.00;
-		//输出购物清单
-
-		for(var item in cart_list)
+	var indexOfFreeGoods,indexOfFivePercentDiscount;
+	for(var i=0;i<discount_list.length;i++){
+		if(discount_list[i].type == "FREE_GOODS_OFFER")
+			indexOfFreeGoods = i;
+		if(discount_list[i].type == "FIVE_PERCENT_DISCOUNT")
+			indexOfFivePercentDiscount = i;
+	}
+	//输出购物清单
+	for(var item in cart_list)
+	{
+		var index;
+		for(index = 0;index < onsale_data.length;index++)
 		{
-			var index;
-			for(index = 0;index < onsale_data.length;index++)
-			{
-				if(item == onsale_data[index].barcode)
-					break;
-			}
-			var price = 0;
+			if(item == onsale_data[index].barcode)
+				break;
+		}
+		var price = 0;
 		//95折
-		if($.inArray(onsale_data[index].barcode,discount_list[0].barcodes) != -1){
+		if($.inArray(onsale_data[index].barcode,discount_list[indexOfFivePercentDiscount].barcodes) != -1){
 			var price = cart_list[item] * onsale_data[index].price;
 			discount_sum += price * 0.05;
 			receiptCotent += "名称：" + onsale_data[index].name + "，数量：" + cart_list[item] + onsale_data[index].unit
@@ -138,7 +151,7 @@ function getReceipt(){
 			price = price * 0.95;
 		}
 		//买二赠一
-		else if($.inArray(onsale_data[index].barcode,discount_list[1].barcodes) != -1 && cart_list[item] / 3 >= 1){
+		else if($.inArray(onsale_data[index].barcode,discount_list[indexOfFreeGoods].barcodes) != -1 && cart_list[item] / 3 >= 1){
 			var freecount = Math.floor(cart_list[item] / 3);
 			var price = (cart_list[item] - freecount) * onsale_data[index].price;
 			discount_sum += freecount * onsale_data[index].price;
@@ -157,7 +170,10 @@ function getReceipt(){
 	}
 	receiptCotent += "----------------------\r\n";
 	if(freeGoodsCotent != "")
+	{
+		freeGoodsCotent = "买二赠一商品：\r\n" + freeGoodsCotent;
 		freeGoodsCotent += "----------------------\r\n";
+	}
 	receiptCotent += freeGoodsCotent;
 	receiptCotent += "总计：" + total_sum.toFixed(2) + "（元）\r\n";
 	if(discount_sum != 0 )

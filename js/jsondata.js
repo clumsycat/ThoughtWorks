@@ -53,14 +53,14 @@ var discount_list =
 [{
  type: "FREE_GOODS_OFFER", 
  barcodes: [ 
- "ITEM000001", 
- "ITEM000002" 
+ "ITEM000004", 
+ "ITEM000007" 
  ] 
 },{ 
   type: "FIVE_PERCENT_DISCOUNT", 
   barcodes: [
-  "ITEM000004",
-  "ITEM000007"
+  "ITEM000001",
+  "ITEM000002"
   ], 
 }]
 
