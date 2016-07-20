@@ -55,3 +55,20 @@ describe("test discount strategy of goods", function(){
 		expect(print()).toEqual(['163.10','39.90']);
 	});
 });
+
+
+describe("receipt content test",function(){
+	beforeEach(function(){
+
+	});
+
+	it("should be equal to the sample",function(){
+		var receipt = getReceipt();
+		var content = receipt[0];
+		var sample = "***<没钱赚商店>购物清单***</br>名称：哈根达斯，数量：3盒，单价：35.00（元），小计：70.00（元）</br>"
+			+ "----------------------</br>名称：哈根达斯，数量：1盒</br>----------------------</br>总计：70.00（元）</br>"
+			+ "节省：35.00（元）</br>**********************</br>";
+		expect(content).toEqual(sample);
+	});
+
+});

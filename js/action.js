@@ -1,5 +1,9 @@
 //copy the init data from jsonfile, and init the onsale list
-function doInit(){
+function doInit(initData){
+	if( typeof(initData) != "undefined"){
+
+	}
+
 	var str = "";
 	for(var i = 0; i < onsale_data.length; i++){
 		if($.inArray(onsale_data[i].barcode,discount_list[0].barcodes) != -1)
@@ -85,16 +89,31 @@ function drawCart(){
 	$("#final-price").html("优惠前：￥"+total_sum.toFixed(2)+"（元）");
 }
 
+function clearCart(){
+	localStorage.setItem("cartlist",JSON.stringify({}));
+	$("#L-cart").html('<a href="#" class="list-group-item disabled">购物车为空</a>');
+	$("#final-price").html("￥0.00（元）");
+	$("#receipt-content").html("快来结账啊~")
+}
+
 //打印小票入口，重构
 function print(){
+	var receipt= getReceipt();
+
+	$("#receipt-content").html(receipt[0]);
+	return [receipt[1].toFixed(2), receipt[2].toFixed(2)];
+}
+
+function getReceipt(){
 	var cart_list = JSON.parse(localStorage.getItem("cartlist"));
-	
+
 	var receiptCotent = "***<没钱赚商店>购物清单***</br>";
 	var freeGoodsCotent = "";
 
 	var total_sum = 0.00;
 	var discount_sum = 0.00;
-	//输出购物清单
+		//输出购物清单
+
 	for(var item in cart_list)
 	{
 		var index;
@@ -139,13 +158,6 @@ function print(){
 	if(discount_sum != 0 )
 		receiptCotent += "节省：" + discount_sum.toFixed(2) + "（元）</br>";
 	receiptCotent +="**********************</br>";
-	$("#receipt-content").html(receiptCotent);
-	return [total_sum.toFixed(2),discount_sum.toFixed(2)];
-}
 
-function clearCart(){
-	localStorage.setItem("cartlist",JSON.stringify({}));
-	$("#L-cart").html('<a href="#" class="list-group-item disabled">购物车为空</a>');
-	$("#final-price").html("￥0.00（元）");
-	$("#receipt-content").html("快来结账啊~")
+	return [receiptCotent, total_sum, discount_sum];
 }
