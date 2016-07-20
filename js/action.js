@@ -111,7 +111,8 @@ function clearCart(){
 
 //打印小票入口，重构
 function print(){
-	var receipt = getReceipt()//.replace(/(?:\r\n|\n)/g, '<br>');
+	var receipt = getReceipt();
+	//.replace(/(?:\r\n|\n)/g, '<br>');
 	$("#receipt-content").html(receipt);
 
 }
