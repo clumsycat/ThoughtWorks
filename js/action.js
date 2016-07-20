@@ -46,9 +46,9 @@ function doInit(onsaleData = onsale_data ,discountData = discount_list,cartData 
 //简化代码阅读，将列表生成的部分拆开单独作为函数
 function saleListStr(onsale_data,info,color){
 	return '<a onclick="addToCart(\'' + onsale_data.barcode 
-		+ '\')" title ="' + info +'" class="list-group-item ' + color + '" id="'
-		+ onsale_data.barcode + '"><span class="badge">' + onsale_data.price.toFixed(2) + ' 元 / '
-		+ onsale_data.unit + '</span>' + onsale_data.name + '</a>';
+	+ '\')" title ="' + info +'" class="list-group-item ' + color + '" id="'
+	+ onsale_data.barcode + '"><span class="badge">' + onsale_data.price.toFixed(2) + ' 元 / '
+	+ onsale_data.unit + '</span>' + onsale_data.name + '</a>';
 }
 
 
@@ -87,9 +87,9 @@ function drawCart(){
 		}
 		total_sum += cart_list[item] * parseFloat(onsale_data[index].price);
 		cartstr += '<a onclick="deleteFromCart(\'' + onsale_data[index].barcode 
-			+'\')" class="list-group-item" id="'+ onsale_data[index].barcode 
-			+'"><span class="badge">' + cart_list[item] + onsale_data[index].unit
-			+ '</span>' + onsale_data[index].name + '</a>';
+		+'\')" class="list-group-item" id="'+ onsale_data[index].barcode 
+		+'"><span class="badge">' + cart_list[item] + onsale_data[index].unit
+		+ '</span>' + onsale_data[index].name + '</a>';
 	}
 	$("#L-cart").html(cartstr);
 	$("#final-price").html("优惠前：￥"+total_sum.toFixed(2)+"（元）");
@@ -104,38 +104,37 @@ function clearCart(){
 
 //打印小票入口，重构
 function print(){
-	var receipt= getReceipt();
+	var receipt = getReceipt().replace(/(?:\r\n|\n)/g, '<br>');
+	$("#receipt-content").html(receipt);
 
-	$("#receipt-content").html(receipt[0]);
-	return [receipt[1].toFixed(2), receipt[2].toFixed(2)];
 }
 
 function getReceipt(){
 	var cart_list = JSON.parse(localStorage.getItem("cartlist"));
 
-	var receiptCotent = "***<没钱赚商店>购物清单***</br>";
+	var receiptCotent = "***<没钱赚商店>购物清单***\r\n";
 	var freeGoodsCotent = "";
 
 	var total_sum = 0.00;
 	var discount_sum = 0.00;
 		//输出购物清单
 
-	for(var item in cart_list)
-	{
-		var index;
-		for(index = 0;index < onsale_data.length;index++)
+		for(var item in cart_list)
 		{
-			if(item == onsale_data[index].barcode)
-				break;
-		}
-		var price = 0;
+			var index;
+			for(index = 0;index < onsale_data.length;index++)
+			{
+				if(item == onsale_data[index].barcode)
+					break;
+			}
+			var price = 0;
 		//95折
 		if($.inArray(onsale_data[index].barcode,discount_list[0].barcodes) != -1){
 			var price = cart_list[item] * onsale_data[index].price;
 			discount_sum += price * 0.05;
 			receiptCotent += "名称：" + onsale_data[index].name + "，数量：" + cart_list[item] + onsale_data[index].unit
-				+ "，单价：" + onsale_data[index].price.toFixed(2) + "（元），小计：" + (price * 0.95).toFixed(2) + "，节省"
-				+ (price * 0.05).toFixed(2) + "（元）</br>"; 
+			+ "，单价：" + onsale_data[index].price.toFixed(2) + "（元），小计：" + (price * 0.95).toFixed(2) + "，节省"
+			+ (price * 0.05).toFixed(2) + "（元）\r\n"; 
 			price = price * 0.95;
 		}
 		//买二赠一
@@ -144,26 +143,26 @@ function getReceipt(){
 			var price = (cart_list[item] - freecount) * onsale_data[index].price;
 			discount_sum += freecount * onsale_data[index].price;
 			freeGoodsCotent += "名称：" + onsale_data[index].name + "，数量：" + freecount + onsale_data[index].unit
-				+ "</br>";
+			+ "\r\n";
 			receiptCotent += "名称：" + onsale_data[index].name + "，数量：" + cart_list[item] + onsale_data[index].unit
-				+ "，单价：" + onsale_data[index].price.toFixed(2) + "（元），小计：" + (price).toFixed(2) + "（元）</br>"; 
+			+ "，单价：" + onsale_data[index].price.toFixed(2) + "（元），小计：" + (price).toFixed(2) + "（元）\r\n"; 
 		}
 		else{
 			var price = cart_list[item] * onsale_data[index].price;
 			receiptCotent += "名称：" + onsale_data[index].name + "，数量：" + cart_list[item] + onsale_data[index].unit
-				+ "，单价：" + onsale_data[index].price.toFixed(2) + "（元），小计：" 
-				+ price.toFixed(2) + "（元）</br>"; 
+			+ "，单价：" + onsale_data[index].price.toFixed(2) + "（元），小计：" 
+			+ price.toFixed(2) + "（元）\r\n"; 
 		}
 		total_sum += price;
 	}
-	receiptCotent += "----------------------</br>";
+	receiptCotent += "----------------------\r\n";
 	if(freeGoodsCotent != "")
-		freeGoodsCotent += "----------------------</br>";
+		freeGoodsCotent += "----------------------\r\n";
 	receiptCotent += freeGoodsCotent;
-	receiptCotent += "总计：" + total_sum.toFixed(2) + "（元）</br>";
+	receiptCotent += "总计：" + total_sum.toFixed(2) + "（元）\r\n";
 	if(discount_sum != 0 )
-		receiptCotent += "节省：" + discount_sum.toFixed(2) + "（元）</br>";
-	receiptCotent +="**********************</br>";
+		receiptCotent += "节省：" + discount_sum.toFixed(2) + "（元）\r\n";
+	receiptCotent +="**********************\r\n";
 
-	return [receiptCotent, total_sum, discount_sum];
+	return receiptCotent;
 }
